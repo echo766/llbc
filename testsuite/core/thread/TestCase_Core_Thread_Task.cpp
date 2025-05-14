@@ -42,7 +42,7 @@ public:
 
 private:
     const size_t _perThreadPopTimes;
-    static LLBC_THREAD_LOCAL int *_val;
+    static thread_local int *_val;
 };
 
 /**
@@ -55,7 +55,7 @@ public:
     void Cleanup() override;
 };
 
-LLBC_THREAD_LOCAL int *BasicTestTask::_val = nullptr;
+thread_local int *BasicTestTask::_val = nullptr;
 
 BasicTestTask::BasicTestTask(size_t perThreadPopTimes)
 : _perThreadPopTimes(perThreadPopTimes)
