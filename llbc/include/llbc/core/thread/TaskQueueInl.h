@@ -33,7 +33,7 @@ template <template <typename> class Task>
 template <template <typename> class Task> 
 void LLBC_MultiThreadTaskQueue::InitQueue(std::in_place_type_t<Task<LLBC_MultiThreadTaskQueue>>, int threadNum)
 {
-    _processorGetter = &Task<LLBC_MultiThreadTaskQueue>::GetProcessorId;
+    _processorIdGetter = &Task<LLBC_MultiThreadTaskQueue>::GetProcessorId;
     _threadNum = threadNum;
     _msgQueues.reserve(_threadNum);
 

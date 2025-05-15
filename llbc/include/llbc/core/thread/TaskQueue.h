@@ -34,6 +34,10 @@ public:
     LLBC_TaskQueue() = default;
     virtual ~LLBC_TaskQueue() = default;
 
+private:
+    // Disable assignment.
+    LLBC_DISABLE_ASSIGNMENT(LLBC_TaskQueue);
+
 public:
     template <template <typename> class Task>
     void InitQueue(std::in_place_type_t<Task<LLBC_TaskQueue>>, int);
@@ -97,6 +101,10 @@ public:
     LLBC_MultiThreadTaskQueue();
     virtual ~LLBC_MultiThreadTaskQueue() = default;
 
+private:
+    // Disable assignment.
+    LLBC_DISABLE_ASSIGNMENT(LLBC_MultiThreadTaskQueue);
+
 public:
     template <template <typename> class Task>  
     void InitQueue(std::in_place_type_t<Task<LLBC_MultiThreadTaskQueue>>, int threadNum);
@@ -142,12 +150,18 @@ public:
      */
     virtual void Clear();
 
+    /**
+     * Get unprocessed message size.
+     * @return size_t - the unprocessed message size.
+     */
+    virtual size_t GetMessageSize() const;
+
 private:
     uint32 _threadNum;
     std::vector<std::unique_ptr<LLBC_MessageQueue>> _msgQueues;
 
-    using ProcessorGetter = int (*)();
-    ProcessorGetter  _processorGetter;
+    using ProcessorIdGetter = int (*)();
+    ProcessorIdGetter  _processorIdGetter;
 };
 
 __LLBC_NS_END
